@@ -12,6 +12,8 @@ import gnomed from '/audio/gnome.mp3'
 import treasure from '/audio/chest.mp3'
 import chair from '/audio/chair.mp3'
 import dish from '/audio/dish.mp3'
+import zipper from '/audio/zipper.mp3'
+import locked from '/audio/cabinet-shake.mp3'
 
 //games:
 import Jigsaw from './GamePopups/Jigsaw'
@@ -156,6 +158,8 @@ export default function Dinner() {
   const chestSound = new Audio(treasure)
   const chairSound = new Audio(chair)
   const dishSound = new Audio(dish)
+  const zip = new Audio(zipper)
+  const lockedClock = new Audio(locked)
 
   return (
     <div className="dinner">
@@ -163,6 +167,7 @@ export default function Dinner() {
         id="dinnerAudio"
         src={'/audio/dinner.mp3'}
         autoPlay={true}
+        loop={true}
         // eslint-disable-next-line react/no-unknown-property
         volume={volume}
       />
@@ -256,7 +261,7 @@ export default function Dinner() {
       <button
         className="clue clockbod"
         onClick={() => {
-          setClock(true)
+          (!matchingWin && lockedClock.play()), setClock(true)
         }}
       >
         <img
@@ -505,7 +510,9 @@ export default function Dinner() {
       <button
         className="clue inventory"
         id="mapbutt"
-        onClick={() => setInventory(true)}
+        onClick={() => {
+          zip.play(), setInventory(true)
+        }}
       >
         <img
           className={block ? 'block' : 'inventory'}
