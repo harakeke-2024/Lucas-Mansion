@@ -4,6 +4,9 @@ import tape from '/audio/stretch-tape.mp3'
 
 import '../../styles/puzzle.css'
 
+//audio:
+import paper from '/audio/paper.mp3'
+
 interface Props {
   setWin: React.Dispatch<React.SetStateAction<boolean>>
   win: boolean
@@ -81,6 +84,8 @@ export default function JigsawPuzzle({ setWin, win }: Props) {
 
   console.log(win)
 
+  const paperSound = new Audio(paper)
+
   return (
     <div className="puzzle-table">
       <div className="puzzle-container">
@@ -97,6 +102,7 @@ export default function JigsawPuzzle({ setWin, win }: Props) {
                 src="puzzle-images/entrance-empty.png"
                 alt="button-0"
                 onClick={() => handleClickBoard(0)}
+                className={clickedPiece === "" ? "" : "selected"}
               />
             </div>
           ) : placedPieces[0] === correctAns[0] ? (
@@ -132,6 +138,7 @@ export default function JigsawPuzzle({ setWin, win }: Props) {
                 src="puzzle-images/corner1-empty.png"
                 alt="button-1"
                 onClick={() => handleClickBoard(1)}
+                className={clickedPiece === "" ? "" : "selected"}
               />
             </div>
           ) : placedPieces[1] === correctAns[0] ? (
@@ -166,6 +173,7 @@ export default function JigsawPuzzle({ setWin, win }: Props) {
                 src="puzzle-images/exit-empty.png"
                 alt="button-2"
                 onClick={() => handleClickBoard(2)}
+                className={clickedPiece === "" ? "" : "selected"}
               />
             </div>
           ) : placedPieces[2] === correctAns[0] ? (
@@ -213,7 +221,9 @@ export default function JigsawPuzzle({ setWin, win }: Props) {
                 <img
                   src={piece}
                   alt="puzzle"
-                  onClick={() => handleClickPiece(index)}
+                  onClick={() => {
+                    paperSound.play(), handleClickPiece(index)
+                  }}
                   className="inventory-piece"
                   style={{ transform: `rotate(${rotationStates[index]}deg)` }}
                 />
@@ -224,13 +234,37 @@ export default function JigsawPuzzle({ setWin, win }: Props) {
                   alt="rotation-button"
                   className="rotate-button"
                   style={{ height: '20px', width: '20px' }}
-                  onClick={() => handleRotation(index)}
+                  onClick={() => {
+                    paperSound.play(), handleRotation(index)
+                  }}
                 />
               </>
             )}
           </div>
         ))}
       </div>
+      <button
+        id="resetbutton"
+        onClick={() => {
+          setPieces([piece3, piece1, piece2]),
+            setRotationStates([0, 0, 0]),
+            setPlacedPieces(['', '', '']),
+            setClickedPiece('')
+        }}
+        style={{ background: 'none', border: 'none' }}
+      >
+        <img
+          style={{
+            position: 'absolute',
+            top: '240px',
+            left: '160px',
+            width: '160px',
+            height: 'auto',
+          }}
+          src="/puzzle-images/reset-offwhite.png"
+          alt="reset button"
+        />
+      </button>
     </div>
   )
 }
