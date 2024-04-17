@@ -13,6 +13,7 @@ export default function MatchingE({ setMatchingE }: Props) {
           <button className="close" onClick={() => setMatchingE(false)}>
             x
           </button>
+          {/* <img src=''/> */}
         </div>
       </div>
     </div>
