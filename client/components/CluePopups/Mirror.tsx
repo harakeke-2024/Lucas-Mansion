@@ -20,7 +20,7 @@ export default function Mirror({
     const newArr = [...foundPapers]
     newArr[1] = true
     setFoundPapers(newArr)
-    console.log("called")
+    console.log('called')
   }
 
   const [isHovered, setIsHovered] = useState(false)
@@ -45,7 +45,7 @@ export default function Mirror({
           </p>
 
           <img
-            src="puzzle-images/corner1.png"
+            src="/puzzle-images/corner1.png"
             alt="piece 1 of a map"
             style={{ height: '150px', marginBottom: '10px' }}
           />
